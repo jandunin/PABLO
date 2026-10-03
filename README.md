@@ -31,7 +31,7 @@ Na produkcję można wrzucić całość na dowolny hosting (Netlify, Vercel, Git
 
 Dane zebrane z publicznych źródeł (Google, Tripadvisor, zjedz.my, Uber Eats, Facebook, Instagram, week.pl). Warto potwierdzić u właściciela:
 
-- godziny otwarcia (pn-czw 12-22, pt-sob 12-23, nd 12-21:30),
-- ceny w karcie (pochodzą z menu dostawowego),
-- konto Instagram (`@pablo_tapas`) i liczbę obserwujących,
+- **ceny w karcie są robocze** - do podmiany na aktualne (tablica `MENU` w `assets/js/main.js`),
 - rok "2014" w statystykach (start pierwszego lokalu przy Grzybowskiej 63).
+
+Potwierdzone: godziny otwarcia oraz Instagram `@pablo_tapas`.

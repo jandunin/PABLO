@@ -380,6 +380,7 @@
 
   /* =========================================================
      Karta + "Twój stół"
+     CENY ROBOCZE - do podmiany na aktualne ceny lokalu
      price: null = cena podawana na miejscu
      share: ile "porcji tapas" wnosi pozycja do stołu
      ========================================================= */
@@ -391,10 +392,10 @@
       { n: "Tortilla de Queso", d: "Hiszpański omlet z serem, mokry w środku - tak jak trzeba", p: 36 },
       { n: "Nuestra Tortilla", d: "Wersja wege, również mokra w środku", p: 30, veg: true },
       { n: "Pimientos de Padrón", d: "Smażone zielone papryczki z solą. Jedna na kilka jest ostra", p: 39, veg: true },
-      { n: "Gambas al Ajillo", d: "Krewetki w oliwie z czosnkiem i hiszpańską szynką", p: null }
+      { n: "Gambas al Ajillo", d: "Krewetki w oliwie z czosnkiem i hiszpańską szynką", p: 45 }
     ]},
     { id: "sprobuj", label: "Musicie tego spróbować", items: [
-      { n: "Cachopo", d: "Chrupiąca wołowina w panko, nadziewana szynką serrano i serem. Ogromne - do podziału", p: null, tag: "hit", share: 2 },
+      { n: "Cachopo", d: "Chrupiąca wołowina w panko, nadziewana szynką serrano i serem. Ogromne - do podziału", p: 89, tag: "hit", share: 2 },
       { n: "Churros de Calamar", d: "Chrupiące paski kałamarnicy", p: 49 },
       { n: "Boczniaki", d: "Boczniaki podane po hiszpańsku", p: 40, veg: true },
       { n: "Quesadilla Chorizo", d: "Z pikantną kiełbasą chorizo i serem", p: 46 },
@@ -405,14 +406,14 @@
     ]},
     { id: "desery", label: "Desery", items: [
       { n: "Churros con Chocolate", d: "4 szt. · z gorzką czekoladą do maczania", p: 22, share: 0 },
-      { n: "Tarta de Queso", d: "Baskijski sernik według przepisu babci Alicii", p: null, tag: "babcia", share: 0 }
+      { n: "Tarta de Queso", d: "Baskijski sernik według przepisu babci Alicii", p: 26, tag: "babcia", share: 0 }
     ]},
     { id: "napoje", label: "Do picia", items: [
-      { n: "Sangria", d: "Czerwone wino, owoce, przyprawy. Najlepiej w dzbanku", p: null, share: 0 },
-      { n: "Tinto de Verano", d: "Letnie czerwone wino z gazowaną lemoniadą", p: null, share: 0 },
-      { n: "Kalimotxo", d: "Baskijski klasyk: czerwone wino i cola", p: null, share: 0 },
-      { n: "Wina hiszpańskie", d: "Czerwone, białe i musujące prosto z Hiszpanii - zapytaj o kartę win", p: null, share: 0 },
-      { n: "Koktajle 0%", d: "Bezalkoholowe koktajle dla kierowców i nie tylko", p: null, share: 0 }
+      { n: "Sangria", d: "Kieliszek · czerwone wino, owoce, przyprawy. Najlepiej w dzbanku", p: 24, share: 0 },
+      { n: "Tinto de Verano", d: "Letnie czerwone wino z gazowaną lemoniadą", p: 22, share: 0 },
+      { n: "Kalimotxo", d: "Baskijski klasyk: czerwone wino i cola", p: 20, share: 0 },
+      { n: "Wina hiszpańskie", d: "Kieliszek · czerwone, białe i musujące prosto z Hiszpanii", p: 26, share: 0 },
+      { n: "Koktajle 0%", d: "Bezalkoholowe koktajle dla kierowców i nie tylko", p: 22, share: 0 }
     ]}
   ];
 
