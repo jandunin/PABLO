@@ -51,12 +51,211 @@
   updateStatus();
   setInterval(updateStatus, 60000);
 
+  /* =========================================================
+     PABLO - twarz z logo: śledzi wzrokiem, mruga, gada
+     ========================================================= */
+  const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+  const GREETINGS = ["¡Hola! Soy Pablo", "¡Bienvenidos!", "¡Hola, amigos!"];
+  const POKES = ["¡Olé!", "¿Una sangría?", "¡Vamos a comer!", "¿Croquetas? ¡Sí!", "¡Ay, łaskocze!", "¡Salud!", "Tapas time!", "¡Qué rico!", "Zamów paellę!"];
+  const EYES = [{ x: 171, y: 285 }, { x: 309, y: 288 }];
+  const VB = { x: -66, y: -36, s: 672 };
+  const tpl = $("#pablo-tpl");
+  const pablos = [];
+
+  $$(".pablo").forEach(el => {
+    el.appendChild(tpl.content.cloneNode(true));
+    const p = {
+      el,
+      svg: $("svg", el),
+      irises: $$(".pablo__iris", el),
+      cur: [{ x: 0, y: 0 }, { x: 0, y: 0 }],
+      visible: true
+    };
+    pablos.push(p);
+  });
+
+  const pointer = { x: innerWidth / 2, y: innerHeight / 3, last: 0 };
+  const setPointer = (x, y) => { pointer.x = x; pointer.y = y; pointer.last = performance.now(); };
+  window.addEventListener("pointermove", e => setPointer(e.clientX, e.clientY), { passive: true });
+  window.addEventListener("pointerdown", e => setPointer(e.clientX, e.clientY), { passive: true });
+  window.addEventListener("touchmove", e => { const t = e.touches[0]; if (t) setPointer(t.clientX, t.clientY); }, { passive: true });
+
+  // Gdy nikt nie rusza kursorem, Pablo rozgląda się sam
+  const wander = { x: 0, y: 0 };
+  setInterval(() => {
+    const r = Math.random();
+    if (r < .25) { wander.x = 0; wander.y = 0; }
+    else { wander.x = (Math.random() * 2 - 1); wander.y = (Math.random() * 2 - 1) * .7; }
+  }, 1600);
+
+  const visIO = new IntersectionObserver(entries => {
+    entries.forEach(en => { const p = pablos.find(q => q.el === en.target); if (p) p.visible = en.isIntersecting; });
+  });
+  pablos.forEach(p => visIO.observe(p.el));
+
+  function eyeLoop() {
+    const idle = performance.now() - pointer.last > 2600;
+    pablos.forEach(p => {
+      if (!p.visible) return;
+      const r = p.svg.getBoundingClientRect();
+      if (!r.width) return;
+      EYES.forEach((eye, i) => {
+        let tx, ty;
+        if (idle) { tx = wander.x * 10; ty = wander.y * 6; }
+        else {
+          const ex = r.left + ((eye.x - VB.x) / VB.s) * r.width;
+          const ey = r.top + ((eye.y - VB.y) / VB.s) * r.height;
+          const dx = pointer.x - ex, dy = pointer.y - ey;
+          const d = Math.hypot(dx, dy) || 1;
+          const m = Math.min(1, d / Math.max(120, r.width * 1.2));
+          tx = (dx / d) * m * 11;
+          ty = (dy / d) * m * 6.5;
+        }
+        const c = p.cur[i];
+        c.x += (tx - c.x) * .18;
+        c.y += (ty - c.y) * .18;
+        p.irises[i].setAttribute("transform", `translate(${c.x.toFixed(2)} ${c.y.toFixed(2)})`);
+      });
+    });
+    requestAnimationFrame(eyeLoop);
+  }
+  if (!reduceMotion) requestAnimationFrame(eyeLoop);
+
+  function blink(p, cls = "is-blink", ms = 140) {
+    p.el.classList.add(cls);
+    setTimeout(() => p.el.classList.remove(cls), ms);
+  }
+  function scheduleBlink(p) {
+    setTimeout(() => {
+      if (p.visible && !p.el.classList.contains("is-sleep")) {
+        blink(p);
+        if (Math.random() < .2) setTimeout(() => blink(p), 260);
+      }
+      scheduleBlink(p);
+    }, 1800 + Math.random() * 4200);
+  }
+  if (!reduceMotion) pablos.forEach(scheduleBlink);
+
+  // Dymek nad Pablem w hero
+  const heroPablo = $(".js-pablo-poke");
+  const heroP = pablos.find(p => p.el === heroPablo);
+  const bubble = $(".js-bubble");
+  let bubbleT;
+  function pabloSay(text, ms = 1800) {
+    bubble.textContent = text;
+    bubble.classList.remove("is-on");
+    void bubble.offsetWidth;
+    bubble.classList.add("is-on");
+    clearTimeout(bubbleT);
+    bubbleT = setTimeout(() => bubble.classList.remove("is-on"), ms);
+  }
+
+  const CONFETTI = ["🫒", "🍤", "🥘", "🍷", "🌶️", "🧀", "🍋", "💃", "🎉", "🍅"];
+  function confetti(x, y) {
+    if (!hasGsap || reduceMotion) return;
+    for (let i = 0; i < 16; i++) {
+      const c = document.createElement("span");
+      c.className = "confetti";
+      c.textContent = pick(CONFETTI);
+      document.body.appendChild(c);
+      const ang = Math.random() * Math.PI * 2;
+      const pow = 120 + Math.random() * 220;
+      gsap.set(c, { x, y, xPercent: -50, yPercent: -50, scale: .4 + Math.random() * .8 });
+      gsap.to(c, { x: x + Math.cos(ang) * pow, duration: 1.6, ease: "power2.out" });
+      gsap.to(c, { y: y + Math.sin(ang) * pow - 120, duration: .6, ease: "power2.out" });
+      gsap.to(c, { y: `+=${260 + Math.random() * 200}`, opacity: 0, rotate: (Math.random() - .5) * 720, duration: 1.1, delay: .6, ease: "power2.in", onComplete: () => c.remove() });
+    }
+  }
+
+  let pokes = 0;
+  heroPablo.addEventListener("click", e => {
+    pokes++;
+    const r = heroPablo.getBoundingClientRect();
+    const x = e.clientX || r.left + r.width / 2;
+    const y = e.clientY || r.top + r.height / 2;
+    if (heroP) blink(heroP, "is-wink", 420);
+    pabloSay(pokes % 7 === 0 ? "¡Basta! Lepiej zamów tapas 😅" : pick(POKES));
+    confetti(x, y);
+    if (hasGsap && !reduceMotion) {
+      gsap.fromTo(heroPablo, { scaleX: 1.18, scaleY: .82 }, { scaleX: 1, scaleY: 1, duration: 1, ease: "elastic.out(1.2, .3)" });
+    }
+  });
+  heroPablo.addEventListener("mouseenter", () => heroPablo.classList.add("is-squint"));
+  heroPablo.addEventListener("mouseleave", () => heroPablo.classList.remove("is-squint"));
+
+  // Rysowanie twarzy w loaderze
+  function drawLoaderPablo() {
+    const lp = $(".pablo--loader");
+    if (!lp) return;
+    if (reduceMotion) { lp.classList.add("is-drawn"); return; }
+    const paths = $$(".pablo__art path", lp);
+    paths.forEach(path => {
+      const len = path.getTotalLength();
+      path.style.strokeDasharray = len;
+      path.style.strokeDashoffset = len;
+    });
+    lp.getBoundingClientRect();
+    paths.forEach((path, i) => {
+      path.style.transition = `stroke-dashoffset 1.05s cubic-bezier(.65,0,.35,1) ${i * 0.012}s`;
+      path.style.strokeDashoffset = 0;
+    });
+    setTimeout(() => {
+      lp.classList.add("is-drawn");
+      const p = pablos.find(q => q.el === lp);
+      if (p) { p.el.classList.add("is-sleep"); setTimeout(() => p.el.classList.remove("is-sleep"), 280); }
+    }, 1150);
+  }
+
+  /* ---------- Happy Hours ---------- */
+  (function happyHours() {
+    const H = window.PABLO_HAPPY;
+    const daysEl = $(".js-happy-days");
+    if (!H || !daysEl) return;
+    const NAMES = ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"];
+    [1, 2, 3, 4, 5, 6].forEach(d => {
+      const o = H.days[d];
+      const li = document.createElement("li");
+      li.className = "happy__day";
+      li.dataset.day = d;
+      li.innerHTML = `<h3>${NAMES[d]}</h3><p>${o.what}</p>${o.sub ? `<small>${o.sub}</small>` : ""}${o.from ? `<small>${fmt(o.from)} - ${fmt(o.to)}</small>` : ""}`;
+      daysEl.appendChild(li);
+    });
+    function update() {
+      const { day, min } = warsawNow();
+      $$(".happy__day", daysEl).forEach(li => li.classList.toggle("is-today", +li.dataset.day === day));
+      const live = $(".js-happy-live");
+      const speech = $(".js-happy-speech");
+      const today = H.days[day];
+      let label, deal, lead = "Dziś 2 za 1:";
+      live.classList.remove("is-live");
+      if (today) {
+        const from = today.from ?? H.from, to = today.to ?? H.to;
+        deal = today;
+        if (min >= from && min < to) { label = `Trwa teraz! Jeszcze ${to - min} min`; live.classList.add("is-live"); }
+        else if (min < from) label = `Dziś od ${fmt(from)} do ${fmt(to)}`;
+        else { label = "Na dziś koniec - do jutra!"; }
+      }
+      if (!today || label.startsWith("Na dziś")) {
+        let nd = (day + 1) % 7;
+        while (!H.days[nd]) nd = (nd + 1) % 7;
+        deal = H.days[nd];
+        lead = nd === (day + 1) % 7 ? "Jutro 2 za 1:" : `${NAMES[nd]} 2 za 1:`;
+        if (!today) label = "W niedzielę bez promocji - ale sangria smakuje tak samo";
+      }
+      live.querySelector("span").textContent = label;
+      speech.innerHTML = `<small>${lead}</small><b>${deal.what}</b>`;
+    }
+    update();
+    setInterval(update, 60000);
+  })();
+
   /* ---------- Loader ---------- */
   function runLoader(done) {
     const loader = $(".loader");
     const countEl = $(".js-count");
     const start = performance.now();
-    const dur = reduceMotion ? 200 : 1500;
+    const dur = reduceMotion ? 200 : 2500;
+    drawLoaderPablo();
     const tick = now => {
       const p = Math.min(1, (now - start) / dur);
       countEl.textContent = Math.round(p * p * (3 - 2 * p) * 100);
@@ -145,7 +344,7 @@
       sectionLinks.forEach(l => l.classList.toggle("is-active", l.getAttribute("href") === `#${en.target.id}`));
     });
   }, { rootMargin: "-45% 0px -50% 0px" });
-  ["historia", "wnetrze", "karta", "klimat", "kontakt"].forEach(id => $(`#${id}`) && io.observe($(`#${id}`)));
+  ["historia", "wnetrze", "karta", "happy-hours", "klimat", "kontakt"].forEach(id => $(`#${id}`) && io.observe($(`#${id}`)));
 
   /* ---------- Podział tekstu na słowa ---------- */
   function splitWords(el) {
@@ -201,8 +400,9 @@
       .from(".hero__title .line > span", { yPercent: 115, rotate: 4, duration: 1.4, stagger: .12 }, .25)
       .from(".hero__eyebrow, .hero__lead, .hero__cta", { y: 30, opacity: 0, duration: 1.2, stagger: .1 }, .6)
       .from(".hero__float", { y: 120, opacity: 0, rotate: 0, duration: 1.6, stagger: .15 }, .5)
-      .from(".nav", { y: -80, opacity: 0, duration: 1.2 }, .7)
-      .from(".hero__badge", { scale: 0, opacity: 0, duration: 1.2 }, 1);
+      .from(".nav", { top: -90, opacity: 0, duration: 1.2, clearProps: "top,opacity" }, .7)
+      .from(".hero__pablo", { y: -window.innerHeight * .9, rotate: -200, scale: .4, duration: 1.6, ease: "elastic.out(1, 0.55)" }, .9)
+      .add(() => pabloSay(pick(GREETINGS), 2600), 2.1);
   }
 
   function setupScrollAnimations() {
@@ -216,7 +416,7 @@
     gsap.to(".hero__bg img", { yPercent: 12, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
     gsap.to(".hero__content", { y: -80, opacity: .2, ease: "none", scrollTrigger: { trigger: ".hero", start: "40% top", end: "bottom top", scrub: true } });
     gsap.to(".hero__float--a", { y: -160, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-    gsap.to(".hero__float--b", { y: -260, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    gsap.to(".hero__pablo .pablo--hero", { y: -120, rotation: 25, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
 
     // Tekst historii - słowa zapalają się podczas przewijania
     const words = $$(".story__big .w");
@@ -289,7 +489,15 @@
     gsap.from(".events__chips span", { y: 20, opacity: 0, stagger: .08, duration: .8, ease: "back.out(2)", scrollTrigger: { trigger: ".events__chips", start: "top 90%" } });
 
     // Stopka
-    gsap.from(".footer__big span", { yPercent: 60, opacity: 0, duration: 1.6, ease: "expo.out", scrollTrigger: { trigger: ".footer", start: "top 90%" } });
+    gsap.from(".footer__big .wordmark path", { yPercent: 80, scale: .3, opacity: 0, duration: 1.2, stagger: .08, ease: "back.out(2.2)", scrollTrigger: { trigger: ".footer", start: "top 85%" } });
+    gsap.from(".footer__pablo .pablo", {
+      y: 140, rotate: -30, scale: .5, opacity: 0, duration: 1.4, ease: "elastic.out(1, .5)",
+      scrollTrigger: { trigger: ".footer", start: "top 80%", onEnter: () => setTimeout(() => $(".bubble--footer").classList.add("is-on"), 900) }
+    });
+    gsap.from(".pablo--happy", { scale: 0, rotate: 180, duration: 1.4, ease: "elastic.out(1, .6)", scrollTrigger: { trigger: ".happy", start: "top 70%" } });
+    gsap.from(".happy__speech", { scale: 0, transformOrigin: "50% 120%", duration: .9, delay: .6, ease: "back.out(2.5)", scrollTrigger: { trigger: ".happy", start: "top 70%" } });
+    gsap.from(".happy__title > *", { yPercent: 100, opacity: 0, rotate: 12, stagger: .12, duration: 1.2, ease: "back.out(2)", scrollTrigger: { trigger: ".happy", start: "top 75%" } });
+    gsap.from(".happy__day", { y: 50, opacity: 0, stagger: .07, duration: .9, ease: "back.out(1.8)", scrollTrigger: { trigger: ".happy__days", start: "top 90%" } });
 
     window.addEventListener("load", () => ScrollTrigger.refresh());
   }
@@ -379,43 +587,9 @@
   document.addEventListener("keydown", e => { if (e.key === "Escape") { closeLb(); closeMenu(); } });
 
   /* =========================================================
-     Karta + "Twój stół"
-     CENY ROBOCZE - do podmiany na aktualne ceny lokalu
-     price: null = cena podawana na miejscu
-     share: ile "porcji tapas" wnosi pozycja do stołu
+     Karta + "Twój stół" - dane w assets/js/menu-data.js
      ========================================================= */
-  const MENU = [
-    { id: "klasyki", label: "Klasyki tapas", items: [
-      { n: "Patatas Bravas", d: "Smażone ziemniaczki, pikantny sos bravas i aioli", p: 27, tag: "klasyk" },
-      { n: "Croquetas de Jamón", d: "4 szt. · kremowy beszamel z hiszpańską szynką", p: 32, tag: "hit" },
-      { n: "Croquetas de Espinaca", d: "4 szt. · beszamel ze szpinakiem", p: 28, veg: true },
-      { n: "Tortilla de Queso", d: "Hiszpański omlet z serem, mokry w środku - tak jak trzeba", p: 36 },
-      { n: "Nuestra Tortilla", d: "Wersja wege, również mokra w środku", p: 30, veg: true },
-      { n: "Pimientos de Padrón", d: "Smażone zielone papryczki z solą. Jedna na kilka jest ostra", p: 39, veg: true },
-      { n: "Gambas al Ajillo", d: "Krewetki w oliwie z czosnkiem i hiszpańską szynką", p: 45 }
-    ]},
-    { id: "sprobuj", label: "Musicie tego spróbować", items: [
-      { n: "Cachopo", d: "Chrupiąca wołowina w panko, nadziewana szynką serrano i serem. Ogromne - do podziału", p: 89, tag: "hit", share: 2 },
-      { n: "Churros de Calamar", d: "Chrupiące paski kałamarnicy", p: 49 },
-      { n: "Boczniaki", d: "Boczniaki podane po hiszpańsku", p: 40, veg: true },
-      { n: "Quesadilla Chorizo", d: "Z pikantną kiełbasą chorizo i serem", p: 46 },
-      { n: "Tabla de Ibérico y Quesos", d: "Deska iberyjskich wędlin i hiszpańskich serów", p: 79, share: 2 }
-    ]},
-    { id: "paella", label: "Paella", items: [
-      { n: "Paella z owocami morza", d: "Dla 2 osób · szafranowy ryż z owocami morza, prosto z patelni", p: 150, tag: "dla 2", share: 4 }
-    ]},
-    { id: "desery", label: "Desery", items: [
-      { n: "Churros con Chocolate", d: "4 szt. · z gorzką czekoladą do maczania", p: 22, share: 0 },
-      { n: "Tarta de Queso", d: "Baskijski sernik według przepisu babci Alicii", p: 26, tag: "babcia", share: 0 }
-    ]},
-    { id: "napoje", label: "Do picia", items: [
-      { n: "Sangria", d: "Kieliszek · czerwone wino, owoce, przyprawy. Najlepiej w dzbanku", p: 24, share: 0 },
-      { n: "Tinto de Verano", d: "Letnie czerwone wino z gazowaną lemoniadą", p: 22, share: 0 },
-      { n: "Kalimotxo", d: "Baskijski klasyk: czerwone wino i cola", p: 20, share: 0 },
-      { n: "Wina hiszpańskie", d: "Kieliszek · czerwone, białe i musujące prosto z Hiszpanii", p: 26, share: 0 },
-      { n: "Koktajle 0%", d: "Bezalkoholowe koktajle dla kierowców i nie tylko", p: 22, share: 0 }
-    ]}
-  ];
+  const MENU = window.PABLO_MENU || [];
 
   // Pływający skrót do stołu (mobile) - widoczny w sekcji karty, gdy stół nie jest pusty
   const pill = $(".table-pill");
@@ -441,19 +615,34 @@
     b.role = "tab";
     b.textContent = cat.label;
     b.setAttribute("aria-selected", String(cat.id === activeTab));
-    b.addEventListener("click", () => { activeTab = cat.id; renderTabs(); renderList(true); });
+    b.addEventListener("click", () => {
+      activeTab = cat.id; renderTabs(); renderList(true);
+      b.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest", inline: "center" });
+    });
     b.dataset.id = cat.id;
     tabsEl.appendChild(b);
   });
   function renderTabs() { $$(".tab", tabsEl).forEach(t => t.setAttribute("aria-selected", String(t.dataset.id === activeTab))); }
 
-  const priceTxt = p => (p == null ? "na miejscu" : `${p} zł`);
+  const priceTxt = it => (it.p == null ? "na miejscu" : it.p2 ? `${it.p} / ${it.p2} zł` : `${it.p} zł`);
 
   function renderList(animate) {
     const cat = MENU.find(c => c.id === activeTab);
     listEl.innerHTML = "";
+    if (cat.note) {
+      const note = document.createElement("li");
+      note.className = "menu__note";
+      note.textContent = cat.note;
+      listEl.appendChild(note);
+    }
     cat.items.forEach(it => {
       const li = document.createElement("li");
+      if (it.h) {
+        li.className = "menu__sub";
+        li.textContent = it.h;
+        listEl.appendChild(li);
+        return;
+      }
       li.className = "dish";
       const tags = [
         it.tag ? `<span class="dish__tag">${it.tag}</span>` : "",
@@ -462,14 +651,14 @@
       const qty = cart.get(it.n)?.qty || 0;
       li.innerHTML = `
         <div class="dish__name">${it.n}${tags}</div>
-        <p class="dish__desc">${it.d}</p>
-        <span class="dish__price">${priceTxt(it.p)}</span>
+        ${it.d ? `<p class="dish__desc">${it.d}</p>` : ""}
+        <span class="dish__price">${priceTxt(it)}</span>
         <button class="dish__add" data-qty="${qty}" aria-label="Dodaj ${it.n} do stołu">+</button>`;
       $(".dish__add", li).addEventListener("click", e => { addItem(it); e.currentTarget.dataset.qty = cart.get(it.n).qty; });
       listEl.appendChild(li);
     });
     if (animate && hasGsap && !reduceMotion) {
-      gsap.from($$(".dish", listEl), { y: 24, opacity: 0, duration: .7, stagger: .05, ease: "expo.out" });
+      gsap.from($$(".dish, .menu__sub, .menu__note", listEl), { y: 24, opacity: 0, duration: .7, stagger: .05, ease: "expo.out" });
     }
   }
 

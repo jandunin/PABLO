@@ -9,8 +9,10 @@
   <meta property="og:title" content="Pablo's TAPAS Gastrobar · Warszawa">
   <meta property="og:description" content="Tapas, wino i madrycki klimat w sercu Warszawy. Grzybowska 5A.">
   <meta property="og:image" content="assets/img/sala-panorama-lg.webp">
+  <meta property="og:logo" content="assets/icons/pablo-512.png">
   <meta property="og:type" content="restaurant">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23e3141d'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' dominant-baseline='middle' font-family='Georgia,serif' font-style='italic' font-size='44' fill='%23f6ead8'%3EP%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" href="assets/icons/favicon-64.png">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -22,6 +24,7 @@
     "@type": "Restaurant",
     "name": "Pablo's TAPAS Gastrobar",
     "image": "assets/img/sala-panorama-lg.webp",
+    "logo": "assets/icons/pablo-512.png",
     "servesCuisine": ["Hiszpańska", "Tapas"],
     "priceRange": "$$",
     "telephone": "+48600227745",
@@ -45,10 +48,14 @@
 </head>
 <body>
 
+  <svg class="sr-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs><clipPath id="pablo-eyeL"><ellipse cx="171" cy="285" rx="28" ry="14"/></clipPath><clipPath id="pablo-eyeR"><ellipse cx="309" cy="288" rx="28" ry="13.5"/></clipPath></defs></svg>
+  <template id="pablo-tpl"><svg class="pablo__svg" viewBox="-66 -36 672 672" aria-hidden="true" focusable="false"><circle class="pablo__disc" cx="270" cy="300" r="326"/><g class="pablo__eye pablo__eye--L" clip-path="url(#pablo-eyeL)"><rect class="pablo__white" x="137" y="265" width="68" height="40"/><g class="pablo__iris"><circle class="pablo__pupil" cx="171" cy="286" r="18"/><circle class="pablo__glint" cx="176" cy="281" r="5"/><circle class="pablo__glint" cx="164" cy="278" r="2.4"/></g><rect class="pablo__lid" x="137" y="265" width="68" height="40"/></g><g class="pablo__eye pablo__eye--R" clip-path="url(#pablo-eyeR)"><rect class="pablo__white" x="275" y="268" width="68" height="40"/><g class="pablo__iris"><circle class="pablo__pupil" cx="309" cy="289" r="18"/><circle class="pablo__glint" cx="314" cy="284" r="5"/><circle class="pablo__glint" cx="302" cy="281" r="2.4"/></g><rect class="pablo__lid" x="275" y="268" width="68" height="40"/></g><g class="pablo__art" transform="translate(0,592) scale(0.1,-0.1)"><path d="M2133 5894 c-25 -27 -65 -31 -103 -9 -39 22 -53 18 -83 -26 -36 -53 -149 -107 -251 -121 -39 -5 -82 -16 -95 -25 -17 -11 -51 -16 -110 -17 -69 -1 -95 -6 -131 -25 -62 -32 -173 -115 -209 -157 -19 -22 -39 -34 -55 -34 -34 0 -50 -30 -35 -64 11 -23 8 -29 -28 -65 -59 -57 -112 -131 -190 -267 -100 -172 -138 -219 -179 -221 -44 -3 -156 -32 -171 -45 -7 -6 -13 -21 -13 -34 0 -29 25 -31 93 -8 76 26 82 18 39 -53 -36 -59 -40 -63 -132 -103 -118 -52 -122 -57 -227 -209 -133 -193 -157 -265 -108 -311 l26 -24 -35 -18 c-66 -34 -72 -93 -8 -70 26 9 33 7 51 -12 29 -30 26 -56 -9 -104 -16 -23 -30 -53 -30 -66 0 -14 -22 -68 -50 -122 -27 -54 -50 -103 -50 -110 0 -20 63 -53 121 -64 89 -17 89 -17 89 -62 0 -29 -9 -56 -31 -90 -28 -42 -30 -52 -20 -74 15 -33 14 -61 -2 -67 -7 -3 -19 -23 -26 -46 -10 -33 -16 -41 -36 -41 -33 0 -53 -36 -32 -57 13 -13 28 -13 104 -3 123 16 175 -6 153 -64 -15 -39 -13 -46 13 -46 52 -1 54 -22 3 -54 l-29 -18 27 -22 c24 -18 27 -27 24 -71 -4 -66 10 -273 24 -355 13 -77 81 -270 113 -320 31 -48 93 -104 136 -124 20 -9 52 -31 71 -49 34 -31 35 -35 47 -147 30 -288 105 -575 153 -588 11 -3 17 -10 14 -19 -6 -14 45 -92 69 -106 8 -4 31 -33 51 -63 20 -30 76 -97 125 -149 48 -51 95 -109 103 -129 8 -19 26 -42 41 -52 14 -9 74 -71 134 -138 96 -109 120 -129 219 -189 198 -121 425 -217 512 -217 17 0 73 -14 124 -31 123 -42 325 -48 417 -12 31 12 65 20 76 17 37 -10 334 247 451 391 36 43 85 92 109 108 23 16 53 41 66 57 12 15 75 85 141 155 112 122 122 135 182 263 104 217 133 293 180 477 13 47 28 223 35 388 0 9 8 17 17 17 33 0 148 51 185 81 56 46 96 136 152 344 16 60 42 262 51 398 4 54 11 100 15 103 4 2 23 -5 41 -16 20 -12 51 -20 77 -20 l44 0 -6 109 -6 109 47 36 c34 27 52 35 67 30 11 -4 49 -8 84 -8 82 -1 94 14 58 67 -14 21 -33 70 -42 110 -9 39 -29 102 -46 138 -43 99 -40 136 21 239 27 47 50 89 50 94 0 5 -31 57 -69 115 -37 58 -74 123 -81 144 -6 21 -23 51 -36 67 -49 58 -52 132 -4 102 26 -16 43 13 31 54 -5 16 -17 63 -26 104 -34 146 -71 178 -222 191 -86 7 -99 11 -126 36 -36 34 -87 137 -87 176 0 37 -14 63 -58 109 l-35 37 27 11 c15 5 38 13 51 16 16 4 25 13 25 25 0 16 -5 18 -24 13 -64 -16 -88 38 -46 101 23 34 26 78 8 92 -7 6 -49 13 -92 17 -121 11 -168 41 -217 143 -31 63 -117 104 -234 110 -93 5 -125 17 -125 48 0 18 11 26 53 41 38 14 53 25 55 41 3 19 0 21 -37 16 -39 -5 -40 -5 -65 45 -30 60 -69 86 -153 103 l-62 13 -108 -47 c-59 -26 -127 -53 -151 -62 l-43 -14 -39 61 c-22 34 -40 67 -40 75 0 24 -59 16 -71 -10 -9 -20 -6 -32 20 -72 58 -92 37 -99 -53 -17 -70 64 -85 83 -97 124 -9 34 12 49 42 30 20 -13 23 -10 32 29 5 19 1 31 -12 43 -18 17 -21 16 -59 -8 -59 -37 -84 -73 -80 -118 1 -25 -3 -44 -14 -54 -15 -16 -21 -13 -82 32 l-66 48 50 46 c67 62 68 91 1 53 -25 -15 -35 -16 -60 -6 -26 9 -32 8 -48 -9 -17 -19 -63 -20 -125 -2 -13 4 -21 -3 -28 -20 -15 -39 -36 -32 -44 14 -7 46 -12 47 -43 14z m-502 -1048 c30 -13 70 -27 89 -31 19 -4 63 -22 97 -41 110 -59 362 -120 483 -116 42 1 78 -4 102 -14 34 -15 42 -15 160 11 161 35 200 42 338 55 65 6 145 21 185 34 38 13 107 29 153 35 45 6 93 16 105 22 12 7 60 16 107 20 117 11 150 0 207 -70 25 -31 58 -64 73 -74 35 -22 82 -135 110 -267 11 -52 28 -117 37 -144 17 -51 16 -83 -9 -281 -12 -93 -15 -496 -5 -620 3 -28 0 -79 -4 -114 -7 -49 -3 -112 15 -270 33 -278 41 -399 39 -573 -2 -141 -4 -153 -39 -259 -23 -68 -46 -119 -60 -133 -32 -29 -91 -129 -106 -177 l-11 -40 -46 52 c-25 29 -66 65 -90 81 -69 43 -131 34 -71 -11 37 -27 38 -37 3 -46 -19 -4 -34 0 -54 14 -22 16 -43 21 -97 21 -57 0 -74 4 -102 25 -36 27 -97 34 -118 13 -8 -8 -15 -8 -24 -1 -21 16 -58 22 -82 13 -14 -5 -28 -3 -41 6 -10 8 -31 14 -46 14 -14 0 -48 9 -74 21 -26 12 -58 19 -73 16 -17 -3 -39 4 -65 21 l-39 26 28 9 c80 23 124 64 124 117 0 30 -29 82 -41 74 -7 -4 -5 -12 5 -23 25 -27 19 -47 -22 -79 -25 -20 -54 -32 -87 -37 -28 -4 -57 -9 -66 -11 -13 -4 -15 1 -11 21 8 44 -6 27 -29 -34 -21 -60 -28 -66 -84 -81 -16 -5 -54 -18 -84 -30 l-54 -21 -51 53 c-62 64 -85 122 -67 166 26 63 -8 127 -46 89 -14 -14 -18 -33 -16 -85 1 -42 -3 -70 -10 -74 -25 -16 -64 -7 -90 20 -39 41 -34 84 16 139 l20 22 -27 11 c-37 14 -39 13 -64 -13 -54 -58 -71 -170 -28 -187 14 -5 43 -22 65 -38 l39 -28 -31 -26 c-125 -99 -125 -98 -181 -92 -53 6 -97 -7 -137 -42 -9 -8 -57 -32 -107 -53 -50 -22 -112 -53 -138 -70 -29 -20 -53 -30 -65 -26 -10 3 -28 1 -39 -5 -32 -17 -37 -4 -12 29 19 26 20 31 6 42 -13 10 -20 10 -37 -1 -12 -7 -43 -15 -69 -16 -52 -2 -64 7 -131 104 -40 57 -52 85 -87 202 -12 41 -31 84 -41 95 -31 34 -49 155 -55 365 -4 107 -8 237 -11 288 -4 78 -2 97 12 112 28 31 44 91 33 120 -13 33 -19 308 -8 385 16 112 5 653 -15 746 -13 60 54 327 113 449 30 60 55 79 176 126 39 15 91 36 116 48 113 51 166 56 241 22z m2653 -1852 c20 -8 21 -34 1 -34 -8 0 -26 5 -40 12 -38 17 -2 38 39 22z m-85 -50 c23 -5 30 -11 26 -21 -14 -39 -138 -214 -145 -207 -4 5 -10 42 -13 81 l-6 72 47 41 c26 22 50 40 53 40 4 0 21 -3 38 -6z m-3618 -47 c-17 -17 -81 -26 -81 -12 0 26 40 45 66 33 15 -7 21 -15 15 -21z m109 -44 c41 -47 42 -49 36 -104 -9 -90 -12 -93 -55 -46 -21 23 -53 64 -71 91 l-33 49 34 28 c19 16 37 29 41 29 3 0 25 -21 48 -47z m3621 -97 c-6 -50 -15 -150 -20 -221 -8 -115 -13 -141 -46 -223 -20 -50 -41 -92 -45 -92 -14 0 -70 73 -70 91 0 8 -11 37 -24 64 -14 26 -20 43 -13 36 18 -18 64 -13 91 12 27 24 83 207 106 342 25 154 40 147 21 -9z m-3806 2 c6 -55 25 -152 57 -281 12 -50 39 -75 88 -83 24 -4 40 -12 40 -20 0 -8 -5 -14 -10 -14 -6 0 -33 -20 -59 -45 -26 -25 -53 -45 -58 -45 -6 0 -24 37 -41 83 -30 78 -32 91 -38 275 -5 131 -4 192 4 192 5 0 13 -28 17 -62z m104 -51 c72 -96 113 -185 109 -234 -3 -36 -5 -38 -39 -41 -53 -4 -82 34 -108 145 -25 108 -37 203 -25 203 5 0 33 -33 63 -73z m3626 -48 c-27 -104 -62 -199 -74 -199 -22 1 -32 19 -22 38 17 32 13 77 -9 105 -11 14 -20 29 -20 34 0 16 143 149 147 137 2 -7 -8 -58 -22 -115z m-135 -333 c11 -35 32 -75 46 -89 33 -33 13 -49 -53 -45 l-48 3 -3 65 c-7 139 22 172 58 66z m-3375 -28 c13 -97 -30 -136 -94 -83 -40 34 -39 39 8 86 53 53 78 52 86 -3z m-40 -160 c28 -13 33 -36 10 -44 -17 -7 -41 10 -56 38 -12 22 6 24 46 6z m3489 -1 c-6 -17 -82 -66 -113 -74 -41 -10 -79 33 -53 59 25 25 175 39 166 15z m-1608 -589 c21 -41 28 -147 12 -178 -18 -34 -58 -47 -96 -31 -27 11 -30 17 -35 77 -6 78 7 141 35 171 19 21 22 21 45 6 13 -9 31 -29 39 -45z m354 11 c27 -53 23 -83 -11 -87 -25 -3 -27 0 -34 48 -5 34 -3 55 5 65 17 20 17 20 40 -26z m-559 21 c28 -15 47 -59 59 -135 14 -86 8 -102 -41 -116 -35 -11 -43 -10 -67 8 -26 20 -27 23 -27 120 0 124 18 154 76 123z m453 -12 c33 -30 56 -97 43 -126 -9 -20 -52 -41 -62 -30 -12 12 -36 133 -31 154 8 30 18 30 50 2z m-611 -9 c33 -25 48 -79 45 -155 l-3 -59 -37 -3 c-55 -5 -74 10 -81 63 -10 69 16 175 43 175 4 0 19 -9 33 -21z m522 -9 c25 -49 31 -152 11 -173 -24 -23 -57 -30 -89 -18 -26 10 -27 13 -27 86 0 96 18 135 60 135 23 0 33 -7 45 -30z m-777 -58 c3 -64 2 -66 -36 -56 -22 6 -23 10 -17 58 13 90 49 88 53 -2z m116 26 c31 -35 36 -49 36 -90 l0 -48 -35 0 c-19 0 -46 5 -61 12 -26 12 -26 14 -20 82 6 62 16 85 38 86 3 0 23 -19 42 -42z m897 -146 c-57 -69 -149 -110 -287 -128 -58 -7 -109 -16 -113 -18 -4 -3 -55 -10 -115 -16 -115 -13 -266 0 -296 24 -8 7 -61 39 -118 71 -99 55 -137 86 -57 45 45 -23 48 -23 253 -46 91 -10 178 -14 215 -10 34 4 85 9 112 11 158 12 187 18 302 65 65 27 124 49 131 49 8 1 -4 -21 -27 -47z"/><path d="M1868 4293 c-42 -3 -58 -8 -58 -19 0 -11 9 -13 38 -10 239 31 620 4 938 -65 89 -19 126 -19 96 0 -20 12 -200 49 -352 72 -133 20 -519 33 -662 22z"/><path d="M1863 4089 c-57 -11 -133 -45 -133 -60 0 -7 7 -8 18 -4 152 64 230 63 797 -9 275 -35 443 -52 449 -46 14 14 12 15 -474 74 -440 54 -568 63 -657 45z"/><path d="M1594 3711 c-60 -10 -127 -38 -187 -79 -24 -17 -61 -34 -83 -38 -48 -9 -104 -61 -104 -97 0 -34 40 -44 83 -21 45 23 148 42 314 58 164 16 207 10 310 -42 94 -48 173 -76 184 -65 12 12 -5 92 -30 142 -27 53 -102 119 -143 125 -18 3 -71 7 -118 10 -47 3 -105 7 -130 10 -25 2 -68 1 -96 -3z"/><path d="M2969 3670 c-180 -27 -277 -68 -300 -127 -13 -35 -3 -43 68 -57 56 -12 60 -11 117 17 39 20 76 30 105 31 62 1 218 -37 278 -67 58 -30 195 -77 223 -77 13 0 20 -7 20 -20 0 -31 22 -24 64 19 66 68 46 93 -164 204 -112 59 -239 102 -285 96 -5 -1 -62 -10 -126 -19z"/><path d="M1590 3403 c-47 -6 -116 -72 -125 -121 -4 -20 -15 -47 -25 -59 -10 -13 -22 -38 -25 -55 -4 -17 -16 -45 -26 -62 -10 -17 -19 -50 -19 -72 l0 -41 128 -59 127 -59 110 0 c92 0 118 4 159 23 27 12 52 22 57 22 15 0 -12 -57 -40 -84 -52 -50 -254 -55 -393 -10 -53 18 -113 15 -113 -4 0 -13 174 -87 230 -98 31 -5 214 18 290 37 37 9 43 16 72 78 l32 68 -9 109 c-14 156 -24 193 -76 265 -32 44 -39 48 -146 82 -127 40 -158 46 -208 40z m145 -97 c67 -17 93 -31 138 -74 50 -48 47 -52 -20 -29 -121 42 -287 31 -321 -20 l-14 -23 43 17 c70 27 247 24 321 -6 221 -87 72 -260 -205 -237 -45 4 -98 8 -119 10 -40 4 -91 31 -126 69 -20 21 -21 25 -7 37 8 7 15 18 15 25 0 8 10 26 23 42 22 27 49 90 61 144 7 34 49 51 141 57 11 1 43 -4 70 -12z"/><path d="M2138 3343 c-25 -6 -24 -8 31 -156 52 -141 58 -167 66 -292 3 -44 9 -115 14 -159 8 -67 6 -88 -11 -145 -32 -106 -33 -123 -12 -138 28 -20 32 -16 39 35 3 26 13 78 22 116 28 122 -1 494 -48 617 -28 74 -63 130 -77 128 -4 -1 -15 -3 -24 -6z"/><path d="M2637 3322 c-59 -65 -110 -295 -111 -502 0 -75 5 -139 12 -161 7 -20 17 -71 21 -113 9 -80 22 -106 51 -106 26 0 30 32 14 108 -24 107 -32 177 -39 327 -8 157 3 225 39 265 15 16 26 43 29 75 4 28 9 67 13 88 7 41 -3 48 -29 19z"/><path d="M2966 3310 c-49 -17 -93 -30 -98 -30 -26 0 -73 -49 -96 -99 -19 -41 -28 -82 -33 -151 -4 -52 -11 -104 -14 -115 -5 -15 5 -33 36 -68 49 -57 80 -73 216 -118 98 -32 106 -33 160 -21 85 18 203 63 203 78 0 19 -35 26 -77 15 -64 -17 -175 -24 -269 -16 l-89 7 -55 56 c-62 64 -54 78 25 43 154 -68 285 -61 458 26 68 34 74 41 58 71 -5 9 -14 63 -20 119 -13 123 -21 143 -77 183 -80 57 -195 64 -328 20z m254 -51 c26 -9 37 -23 57 -68 14 -30 40 -72 59 -93 55 -61 43 -106 -43 -158 -55 -34 -56 -34 -182 -34 -130 -1 -204 17 -268 63 -36 26 -31 85 10 125 19 20 31 41 29 53 -5 31 43 80 101 102 60 23 184 28 237 10z"/><path d="M3010 3191 c-14 -4 -41 -18 -60 -31 -19 -12 -26 -19 -15 -15 58 19 128 27 200 22 77 -5 79 -5 45 9 -42 18 -136 26 -170 15z"/><path d="M1200 2830 c-38 -9 -31 -34 9 -38 43 -4 129 18 109 28 -21 11 -90 17 -118 10z"/><path d="M3435 2821 c-16 -7 -10 -11 34 -25 64 -19 97 -20 107 -4 18 29 -85 51 -141 29z"/><path d="M1245 2722 c-37 -13 -50 -22 -50 -37 0 -33 29 -28 76 14 49 45 46 48 -26 23z"/><path d="M3466 2679 c40 -43 62 -53 80 -38 21 18 18 23 -31 47 -67 33 -86 29 -49 -9z"/><path d="M2597 2283 c-3 -5 0 -31 7 -58 12 -50 26 -45 26 9 0 26 -24 63 -33 49z"/><path d="M2340 2203 l-35 -16 27 -7 c41 -12 168 -19 168 -10 0 5 -12 18 -26 29 -32 25 -84 26 -134 4z"/><path d="M3060 2050 c0 -25 153 -80 222 -80 57 0 64 15 11 24 -21 4 -70 20 -110 37 -72 29 -123 37 -123 19z"/><path d="M1585 1891 c-27 -13 -34 -20 -20 -20 11 0 38 8 60 18 27 13 34 20 20 20 -11 0 -38 -8 -60 -18z"/></g></svg></template>
+
   <!-- ===== Preloader ===== -->
   <div class="loader" aria-hidden="true">
     <div class="loader__inner">
-      <div class="loader__word"><span>P</span><span>a</span><span>b</span><span>l</span><span>o</span><span>'</span><span>s</span></div>
+      <div class="pablo pablo--loader" data-static></div>
+      <div class="loader__word"><svg class="wordmark" viewBox="0 0 840 365" role="img" aria-label="Pablo"><g transform="translate(0.000000,365.000000) scale(0.100000,-0.100000)"><path d="M964 3581 c-169 -20 -225 -40 -261 -94 -13 -18 -42 -107 -67 -202 -24 -94 -85 -309 -134 -480 -399 -1367 -539 -1976 -479 -2090 66 -127 276 -148 356 -36 33 46 43 83 130 459 82 351 136 561 149 574 4 4 48 1 97 -7 115 -19 322 -19 417 -1 221 42 428 173 570 361 167 220 248 481 235 759 -8 159 -30 248 -93 375 -39 78 -62 110 -133 181 -94 94 -184 148 -316 190 -96 30 -271 34 -471 11z m367 -437 c72 -22 147 -95 180 -179 21 -53 24 -76 24 -200 0 -120 -3 -150 -23 -210 -103 -310 -339 -467 -638 -425 -47 7 -87 17 -90 24 -3 8 256 925 281 994 7 19 198 16 266 -4z"/><path d="M2887 3300 c-127 -49 -241 -200 -470 -620 -163 -300 -479 -943 -699 -1425 -33 -71 -102 -218 -154 -325 -102 -213 -118 -267 -102 -345 13 -62 80 -133 150 -160 42 -15 54 -16 94 -5 91 26 162 124 274 380 52 118 75 148 137 182 111 61 417 124 652 135 l134 6 -6 -44 c-4 -24 -10 -154 -13 -289 -8 -288 -3 -314 60 -376 131 -125 337 -52 366 131 28 183 55 1066 46 1530 -13 660 -45 961 -113 1087 -72 133 -222 191 -356 138z m23 -1204 l0 -523 -275 -33 c-151 -18 -278 -30 -282 -26 -13 12 25 103 152 366 68 140 150 314 183 387 70 154 126 251 177 311 20 23 38 42 41 42 2 0 4 -236 4 -524z"/><path d="M4197 2956 c-49 -18 -72 -39 -96 -90 -18 -38 -136 -608 -195 -941 -27 -154 -172 -958 -242 -1350 -56 -304 -59 -383 -21 -448 83 -141 427 -167 767 -56 399 129 712 402 839 734 53 136 74 239 75 360 1 184 -39 269 -211 446 l-113 116 32 29 c17 16 57 61 89 101 160 200 191 403 92 602 -39 79 -177 213 -278 273 -129 75 -387 174 -570 218 -94 23 -117 24 -168 6z m342 -516 c123 -35 216 -93 272 -171 20 -29 20 -29 0 -73 -48 -110 -204 -226 -404 -301 l-69 -25 6 27 c3 16 26 138 51 273 55 295 54 290 63 290 4 0 40 -9 81 -20z m101 -1056 c177 -40 270 -161 241 -316 -50 -272 -389 -555 -723 -606 l-58 -9 0 28 c0 85 81 615 120 789 33 141 23 129 99 133 100 6 248 -2 321 -19z"/><path d="M6075 3326 c-132 -42 -160 -84 -195 -286 -28 -164 -55 -289 -155 -705 -186 -779 -234 -1103 -206 -1382 36 -351 174 -551 419 -602 76 -16 240 -14 330 5 211 42 512 170 575 244 66 78 69 182 7 268 -36 50 -83 72 -157 72 -76 0 -134 -18 -308 -92 -233 -100 -309 -109 -370 -44 -44 47 -56 94 -62 232 -11 252 40 543 236 1359 118 489 125 525 126 680 0 109 -2 125 -25 170 -44 87 -113 113 -215 81z"/><path d="M7616 3634 c-347 -77 -636 -395 -791 -868 -78 -237 -109 -437 -108 -701 0 -204 16 -359 58 -549 148 -684 500 -941 917 -669 265 173 525 650 647 1188 72 321 80 681 20 920 -59 234 -212 496 -350 599 -111 84 -250 112 -393 80z m150 -499 c93 -61 157 -182 185 -348 19 -114 6 -406 -25 -567 -85 -442 -283 -867 -461 -990 -72 -50 -87 -49 -129 8 -202 275 -245 938 -91 1407 75 229 225 453 347 514 57 29 104 23 174 -24z"/></g></svg></div>
       <div class="loader__sub">Tapas · Vino · Madrid → Warszawa</div>
       <div class="loader__count"><span class="js-count">0</span>%</div>
     </div>
@@ -61,13 +68,14 @@
   <!-- ===== Nav ===== -->
   <header class="nav" id="top">
     <a href="#top" class="nav__logo" aria-label="Pablo's TAPAS Gastrobar - początek strony">
-      <span class="nav__logo-mark">P</span>
+      <span class="nav__logo-mark"><span class="pablo pablo--nav"></span></span>
       <span class="nav__logo-text">Pablo's <em>TAPAS</em></span>
     </a>
     <nav class="nav__links" aria-label="Główna nawigacja">
       <a href="#historia">Historia</a>
       <a href="#wnetrze">Wnętrze</a>
       <a href="#karta">Karta</a>
+      <a href="#happy-hours">Happy Hours</a>
       <a href="#klimat">Klimat</a>
       <a href="#kontakt">Kontakt</a>
     </nav>
@@ -82,6 +90,7 @@
     <a href="#historia">Historia</a>
     <a href="#wnetrze">Wnętrze</a>
     <a href="#karta">Karta</a>
+    <a href="#happy-hours">Happy Hours</a>
     <a href="#klimat">Klimat</a>
     <a href="#opinie">Opinie</a>
     <a href="#kontakt">Kontakt</a>
@@ -100,12 +109,9 @@
       <div class="hero__float hero__float--a" data-depth="0.6">
         <img src="assets/img/stolik-lampka-sm.webp" alt="Stolik z czerwoną lampką w loży" loading="eager">
       </div>
-      <div class="hero__float hero__float--b" data-depth="1.1">
-        <img src="assets/img/posag-noc-sm.webp" alt="Posąg na kolumnie przy barze" loading="eager">
-      </div>
 
       <div class="hero__content">
-        <p class="eyebrow hero__eyebrow"><span class="dot"></span> Grzybowska 5A · Warszawa · Śródmieście</p>
+        <p class="eyebrow hero__eyebrow"><span class="dot"></span> Hiszpańska fiesta w centrum Warszawy · Grzybowska 5A</p>
         <h1 class="hero__title">
           <span class="line"><span>Kawałek</span></span>
           <span class="line"><span><em>Madrytu</em></span></span>
@@ -118,12 +124,13 @@
         </div>
       </div>
 
-      <div class="hero__badge" aria-hidden="true">
-        <svg viewBox="0 0 200 200">
-          <defs><path id="circ" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
-          <text><textPath href="#circ">· Pierwszy prawdziwy tapas bar w Warszawie · ¡Olé! </textPath></text>
+      <div class="hero__pablo">
+        <svg class="hero__ring" viewBox="0 0 300 300" aria-hidden="true">
+          <defs><path id="circ" d="M150,150 m-132,0 a132,132 0 1,1 264,0 a132,132 0 1,1 -264,0"/></defs>
+          <text><textPath href="#circ" textLength="826">Przyjdź na tapas · zostań dla atmosfery · ¡Olé! · Pablo's Tapas ·</textPath></text>
         </svg>
-        <span class="hero__badge-star">✺</span>
+        <button class="pablo pablo--hero js-pablo-poke" type="button" aria-label="Kliknij Pabla"></button>
+        <span class="bubble js-bubble" aria-live="polite">¡Hola! Soy Pablo</span>
       </div>
 
       <a href="#historia" class="hero__scroll" aria-label="Przewiń w dół"><span></span>Scroll</a>
@@ -150,6 +157,7 @@
         <div class="story__text">
           <p class="story__big js-words">Pablo przyjechał z Madrytu z zeszytem przepisów babci i jedną myślą: przenieść do Warszawy smaki dzieciństwa, zapach hiszpańskich ulic i tę atmosferę, w której tapas to nie jedzenie, tylko <em>styl życia</em>.</p>
           <p class="story__small">Najpierw było TAPAS Gastrobar w Hiltonie przy Grzybowskiej 63. Od 2020 roku gościmy pod numerem 5A, w miejscu dawnej Casa Pablo, którą Pablo prowadził z żoną Grace. Babcia Alicia wciąż jest z nami - w każdym kawałku baskijskiego sernika.</p>
+          <p class="story__quote">„Przyjdź na tapas, zostań dla atmosfery. ¡Olé!”<span>- Pablo</span></p>
 
           <div class="stats">
             <div class="stat"><span class="stat__num" data-count="30" data-suffix="+">0</span><span class="stat__label">tapas w karcie</span></div>
@@ -235,8 +243,25 @@
           <p class="table-card__tip js-tip">Na 2 osoby polecamy 4-6 tapas.</p>
           <div class="table-card__sum"><span>Razem</span><b class="js-total">0 zł</b></div>
           <a href="#rezerwacja" class="btn btn--red btn--block">Rezerwuj stolik</a>
-          <p class="table-card__note">Ceny orientacyjne. Aktualną kartę podamy na miejscu.</p>
+          <p class="table-card__note">Do rachunków powyżej 200 zł doliczamy 10% serwisu. Osobne rachunki dla grup do 8 osób. Masz alergię? Powiedz nam.</p>
         </aside>
+      </div>
+    </section>
+
+    <!-- ===== Happy Hours ===== -->
+    <section class="happy section" id="happy-hours">
+      <div class="happy__inner">
+        <div class="happy__left">
+          <p class="eyebrow">04 · Happy Hours</p>
+          <h2 class="happy__title"><span>2</span><em>za</em><span>1</span></h2>
+          <p class="happy__lead">Codziennie od <b>16:00 do 18:00</b>, w sobotę od 12:00 do 15:00. Tylko na miejscu, przy stoliku u Pabla.</p>
+          <div class="happy__live js-happy-live"><i></i><span>Sprawdzam, co dziś…</span></div>
+        </div>
+        <div class="happy__pablo">
+          <div class="pablo pablo--happy"></div>
+          <div class="happy__speech js-happy-speech"><small>Dziś 2 za 1:</small><b>…</b></div>
+        </div>
+        <ol class="happy__days js-happy-days" aria-label="Oferta Happy Hours na każdy dzień"></ol>
       </div>
     </section>
 
@@ -250,7 +275,7 @@
     <!-- ===== Klimat (bento) ===== -->
     <section class="vibe section" id="klimat">
       <div class="vibe__head">
-        <p class="eyebrow">04 · Klimat</p>
+        <p class="eyebrow">05 · Klimat</p>
         <h2 class="h2">Tu się <em>zostaje</em></h2>
       </div>
       <div class="bento">
@@ -300,7 +325,7 @@
     <section class="reviews section" id="opinie">
       <div class="reviews__head">
         <div>
-          <p class="eyebrow">05 · Opinie</p>
+          <p class="eyebrow">06 · Opinie</p>
           <h2 class="h2">Mówią o nas <em>z pełnymi ustami</em></h2>
         </div>
         <div class="ratings">
@@ -351,7 +376,7 @@
     <section class="insta section" id="instagram">
       <div class="insta__head">
         <div>
-          <p class="eyebrow">06 · Instagram</p>
+          <p class="eyebrow">07 · Instagram</p>
           <h2 class="h2">Zajrzyj na <em>@pablo_tapas</em></h2>
         </div>
         <a href="https://www.instagram.com/pablo_tapas/" target="_blank" rel="noopener" class="btn btn--ghost magnetic">
@@ -373,13 +398,14 @@
     <section class="events" id="eventy">
       <div class="events__bg"><img src="assets/img/bar-butelki-lg.webp" alt="" loading="lazy"></div>
       <div class="events__content">
-        <p class="eyebrow">07 · Imprezy i catering</p>
+        <p class="eyebrow">08 · Imprezy i catering</p>
         <h2 class="events__title">Cały lokal<br><em>tylko dla Was</em></h2>
-        <p>Urodziny, wesele, firmowa kolacja albo seminarium. Wynajmij Pablo's na wyłączność - do 200 gości, na siedząco lub w formie bufetu. A jeśli impreza jest u Ciebie, przywieziemy tapas jako finger food.</p>
-        <div class="events__chips">
-          <span>do 200 osób</span><span>bufet lub serwis</span><span>catering z dowozem</span><span>wesela i firmy</span>
+        <div class="events__list">
+          <div class="events__item"><span>01</span><h3>Organizacja przyjęć</h3><p>Świętuj u Pabla! Zrelaksuj się, a my zajmiemy się organizacją - pyszne tapas, wino i niezapomniany klimat gwarantowane.</p></div>
+          <div class="events__item"><span>02</span><h3>Catering z dostawą</h3><p>Zorganizuj hiszpańską fiestę, gdzie tylko chcesz. Nasze tapas to idealne finger food.</p></div>
+          <div class="events__item"><span>03</span><h3>Spotkania biznesowe</h3><p>Wynajmij lokal na wyłączność dla swojej firmy. Przyjęcia do 200 osób - na siedząco lub w formie bufetu.</p></div>
         </div>
-        <a href="mailto:tapas@tapasgastrobar.pl?subject=Zapytanie%20o%20wydarzenie" class="btn btn--cream magnetic">Zapytaj o termin →</a>
+        <a href="mailto:tapas@tapasgastrobar.pl?subject=Zapytanie%20o%20wydarzenie" class="btn btn--cream magnetic">Zarezerwuj swoją fiestę - napisz do Pabla →</a>
       </div>
     </section>
 
@@ -387,7 +413,7 @@
     <section class="visit section" id="kontakt">
       <div class="visit__grid">
         <div class="visit__info">
-          <p class="eyebrow">08 · Odwiedź nas</p>
+          <p class="eyebrow">09 · Odwiedź nas</p>
           <h2 class="h2">Do zobaczenia <em>na Grzybowskiej</em></h2>
 
           <div class="visit__block">
@@ -445,8 +471,12 @@
 
   <!-- ===== Footer ===== -->
   <footer class="footer">
-    <div class="footer__big" aria-hidden="true">
-      <span>Pablo's</span>
+    <div class="footer__stage">
+      <div class="footer__pablo">
+        <span class="bubble bubble--footer">¡Hasta luego!</span>
+        <div class="pablo pablo--footer"></div>
+      </div>
+      <div class="footer__big" aria-hidden="true"><svg class="wordmark" viewBox="0 0 840 365" role="img" aria-label="Pablo"><g transform="translate(0.000000,365.000000) scale(0.100000,-0.100000)"><path d="M964 3581 c-169 -20 -225 -40 -261 -94 -13 -18 -42 -107 -67 -202 -24 -94 -85 -309 -134 -480 -399 -1367 -539 -1976 -479 -2090 66 -127 276 -148 356 -36 33 46 43 83 130 459 82 351 136 561 149 574 4 4 48 1 97 -7 115 -19 322 -19 417 -1 221 42 428 173 570 361 167 220 248 481 235 759 -8 159 -30 248 -93 375 -39 78 -62 110 -133 181 -94 94 -184 148 -316 190 -96 30 -271 34 -471 11z m367 -437 c72 -22 147 -95 180 -179 21 -53 24 -76 24 -200 0 -120 -3 -150 -23 -210 -103 -310 -339 -467 -638 -425 -47 7 -87 17 -90 24 -3 8 256 925 281 994 7 19 198 16 266 -4z"/><path d="M2887 3300 c-127 -49 -241 -200 -470 -620 -163 -300 -479 -943 -699 -1425 -33 -71 -102 -218 -154 -325 -102 -213 -118 -267 -102 -345 13 -62 80 -133 150 -160 42 -15 54 -16 94 -5 91 26 162 124 274 380 52 118 75 148 137 182 111 61 417 124 652 135 l134 6 -6 -44 c-4 -24 -10 -154 -13 -289 -8 -288 -3 -314 60 -376 131 -125 337 -52 366 131 28 183 55 1066 46 1530 -13 660 -45 961 -113 1087 -72 133 -222 191 -356 138z m23 -1204 l0 -523 -275 -33 c-151 -18 -278 -30 -282 -26 -13 12 25 103 152 366 68 140 150 314 183 387 70 154 126 251 177 311 20 23 38 42 41 42 2 0 4 -236 4 -524z"/><path d="M4197 2956 c-49 -18 -72 -39 -96 -90 -18 -38 -136 -608 -195 -941 -27 -154 -172 -958 -242 -1350 -56 -304 -59 -383 -21 -448 83 -141 427 -167 767 -56 399 129 712 402 839 734 53 136 74 239 75 360 1 184 -39 269 -211 446 l-113 116 32 29 c17 16 57 61 89 101 160 200 191 403 92 602 -39 79 -177 213 -278 273 -129 75 -387 174 -570 218 -94 23 -117 24 -168 6z m342 -516 c123 -35 216 -93 272 -171 20 -29 20 -29 0 -73 -48 -110 -204 -226 -404 -301 l-69 -25 6 27 c3 16 26 138 51 273 55 295 54 290 63 290 4 0 40 -9 81 -20z m101 -1056 c177 -40 270 -161 241 -316 -50 -272 -389 -555 -723 -606 l-58 -9 0 28 c0 85 81 615 120 789 33 141 23 129 99 133 100 6 248 -2 321 -19z"/><path d="M6075 3326 c-132 -42 -160 -84 -195 -286 -28 -164 -55 -289 -155 -705 -186 -779 -234 -1103 -206 -1382 36 -351 174 -551 419 -602 76 -16 240 -14 330 5 211 42 512 170 575 244 66 78 69 182 7 268 -36 50 -83 72 -157 72 -76 0 -134 -18 -308 -92 -233 -100 -309 -109 -370 -44 -44 47 -56 94 -62 232 -11 252 40 543 236 1359 118 489 125 525 126 680 0 109 -2 125 -25 170 -44 87 -113 113 -215 81z"/><path d="M7616 3634 c-347 -77 -636 -395 -791 -868 -78 -237 -109 -437 -108 -701 0 -204 16 -359 58 -549 148 -684 500 -941 917 -669 265 173 525 650 647 1188 72 321 80 681 20 920 -59 234 -212 496 -350 599 -111 84 -250 112 -393 80z m150 -499 c93 -61 157 -182 185 -348 19 -114 6 -406 -25 -567 -85 -442 -283 -867 -461 -990 -72 -50 -87 -49 -129 8 -202 275 -245 938 -91 1407 75 229 225 453 347 514 57 29 104 23 174 -24z"/></g></svg></div>
     </div>
     <div class="footer__bar">
       <p>© <span class="js-year">2026</span> Pablo's TAPAS Gastrobar · Grzybowska 5A, Warszawa</p>
@@ -466,6 +496,7 @@
   <script src="assets/vendor/gsap.min.js" defer></script>
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
   <script src="assets/vendor/lenis.min.js" defer></script>
+  <script src="assets/js/menu-data.js" defer></script>
   <script src="assets/js/main.js" defer></script>
 </body>
 </html>
