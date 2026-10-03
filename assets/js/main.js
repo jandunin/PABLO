@@ -63,7 +63,7 @@
   const pablos = [];
 
   $$(".pablo").forEach(el => {
-    el.appendChild(tpl.content.cloneNode(true));
+    if (!$("svg", el)) el.appendChild(tpl.content.cloneNode(true));
     const p = {
       el,
       svg: $("svg", el),

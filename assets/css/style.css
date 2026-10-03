@@ -840,3 +840,19 @@ em { font-style: italic; }
 }
 .bubble--footer { transform: scale(0) rotate(6deg); opacity: 0; }
 .bubble--footer.is-on { transform: scale(1) rotate(4deg); opacity: 1; }
+
+/* Bez JavaScriptu (np. podgląd plików) - strona ma działać jako zwykły, przewijalny dokument */
+.no-js .loader, .no-js .cursor, .no-js .table-pill { display: none !important; }
+.no-js body { overflow: auto; }
+/* Bezpiecznik: gdyby skrypt nie zdjął loadera, znika sam */
+.loader { animation: loaderFailsafe .6s ease 7s forwards; }
+@keyframes loaderFailsafe { to { opacity: 0; visibility: hidden; pointer-events: none; } }
+body.is-loading { animation: unlockScroll 0s 7.6s forwards; }
+@keyframes unlockScroll { to { overflow: auto; } }
+.menu__list--static { list-style: none; margin: 0; padding: 0; }
+.dish--static { grid-template-columns: minmax(0, 1fr) auto; }
+.menu__sub--minor { color: var(--muted); font-size: 11px; }
+.no-js .menu__tabs, .no-js .table-card, .no-js .happy__live, .no-js .happy__speech { display: none; }
+.no-js .menu__layout { grid-template-columns: 1fr; }
+.no-js .story__big .w { opacity: 1; }
+.no-js .status { display: none; }
