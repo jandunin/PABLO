@@ -90,23 +90,9 @@
   // Rysowanie twarzy w loaderze
   function drawLoaderPablo() {
     const lp = $(".pablo--loader");
-    if (!lp) return;
-    if (reduceMotion) { lp.classList.add("is-drawn"); return; }
-    const paths = $$(".pablo__art path", lp);
-    paths.forEach(path => {
-      const len = path.getTotalLength();
-      path.style.strokeDasharray = len;
-      path.style.strokeDashoffset = len;
-    });
-    lp.getBoundingClientRect();
-    paths.forEach((path, i) => {
-      path.style.transition = `stroke-dashoffset 1.05s cubic-bezier(.65,0,.35,1) ${i * 0.012}s`;
-      path.style.strokeDashoffset = 0;
-    });
-    setTimeout(() => {
-      lp.classList.add("is-drawn");
-    }, 1150);
+    if (lp) setTimeout(() => lp.classList.add("is-drawn"), reduceMotion ? 0 : 450);
   }
+
 
   /* ---------- Happy Hours ---------- */
   (function happyHours() {
