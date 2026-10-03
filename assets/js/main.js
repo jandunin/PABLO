@@ -54,134 +54,38 @@
   /* =========================================================
      PABLO - twarz z logo: śledzi wzrokiem, mruga, gada
      ========================================================= */
-  const pick = arr => arr[Math.floor(Math.random() * arr.length)];
-  const GREETINGS = ["¡Hola! Soy Pablo", "¡Bienvenidos!", "¡Hola, amigos!"];
-  const POKES = ["¡Olé!", "¿Una sangría?", "¡Vamos a comer!", "¿Croquetas? ¡Sí!", "¡Ay, łaskocze!", "¡Salud!", "Tapas time!", "¡Qué rico!", "Zamów paellę!"];
-  const EYES = [{ x: 171, y: 285 }, { x: 309, y: 288 }];
-  const VB = { x: -66, y: -36, s: 672 };
   const tpl = $("#pablo-tpl");
-  const pablos = [];
+  $$(".pablo").forEach(el => { if (!$("svg", el)) el.appendChild(tpl.content.cloneNode(true)); });
 
-  $$(".pablo").forEach(el => {
-    if (!$("svg", el)) el.appendChild(tpl.content.cloneNode(true));
-    const p = {
-      el,
-      svg: $("svg", el),
-      irises: $$(".pablo__iris", el),
-      cur: [{ x: 0, y: 0 }, { x: 0, y: 0 }],
-      visible: true
-    };
-    pablos.push(p);
-  });
-
-  const pointer = { x: innerWidth / 2, y: innerHeight / 3, last: 0 };
-  const setPointer = (x, y) => { pointer.x = x; pointer.y = y; pointer.last = performance.now(); };
-  window.addEventListener("pointermove", e => setPointer(e.clientX, e.clientY), { passive: true });
-  window.addEventListener("pointerdown", e => setPointer(e.clientX, e.clientY), { passive: true });
-  window.addEventListener("touchmove", e => { const t = e.touches[0]; if (t) setPointer(t.clientX, t.clientY); }, { passive: true });
-
-  // Gdy nikt nie rusza kursorem, Pablo rozgląda się sam
-  const wander = { x: 0, y: 0 };
-  setInterval(() => {
-    const r = Math.random();
-    if (r < .25) { wander.x = 0; wander.y = 0; }
-    else { wander.x = (Math.random() * 2 - 1); wander.y = (Math.random() * 2 - 1) * .7; }
-  }, 1600);
-
-  const visIO = new IntersectionObserver(entries => {
-    entries.forEach(en => { const p = pablos.find(q => q.el === en.target); if (p) p.visible = en.isIntersecting; });
-  });
-  pablos.forEach(p => visIO.observe(p.el));
-
-  function eyeLoop() {
-    const idle = performance.now() - pointer.last > 2600;
-    pablos.forEach(p => {
-      if (!p.visible) return;
-      const r = p.svg.getBoundingClientRect();
-      if (!r.width) return;
-      EYES.forEach((eye, i) => {
-        let tx, ty;
-        if (idle) { tx = wander.x * 10; ty = wander.y * 6; }
-        else {
-          const ex = r.left + ((eye.x - VB.x) / VB.s) * r.width;
-          const ey = r.top + ((eye.y - VB.y) / VB.s) * r.height;
-          const dx = pointer.x - ex, dy = pointer.y - ey;
-          const d = Math.hypot(dx, dy) || 1;
-          const m = Math.min(1, d / Math.max(120, r.width * 1.2));
-          tx = (dx / d) * m * 11;
-          ty = (dy / d) * m * 6.5;
-        }
-        const c = p.cur[i];
-        c.x += (tx - c.x) * .18;
-        c.y += (ty - c.y) * .18;
-        p.irises[i].setAttribute("transform", `translate(${c.x.toFixed(2)} ${c.y.toFixed(2)})`);
-      });
-    });
-    requestAnimationFrame(eyeLoop);
-  }
-  if (!reduceMotion) requestAnimationFrame(eyeLoop);
-
-  function blink(p, cls = "is-blink", ms = 140) {
-    p.el.classList.add(cls);
-    setTimeout(() => p.el.classList.remove(cls), ms);
-  }
-  function scheduleBlink(p) {
-    setTimeout(() => {
-      if (p.visible && !p.el.classList.contains("is-sleep")) {
-        blink(p);
-        if (Math.random() < .2) setTimeout(() => blink(p), 260);
+  // Pablo w hero: delikatne pochylenie 3D za kursorem + odblask jak na naklejce
+  const heroPablo = $(".js-pablo-hero");
+  if (heroPablo && !reduceMotion) {
+    const st = { rx: 0, ry: 0, tx: 0, ty: 0, last: 0 };
+    window.addEventListener("pointermove", e => {
+      if (e.pointerType !== "mouse") return;
+      const r = heroPablo.getBoundingClientRect();
+      const dx = (e.clientX - (r.left + r.width / 2)) / innerWidth;
+      const dy = (e.clientY - (r.top + r.height / 2)) / innerHeight;
+      st.ty = Math.max(-1, Math.min(1, dx * 2.2)) * 14;
+      st.tx = Math.max(-1, Math.min(1, dy * 2.2)) * -14;
+      st.last = performance.now();
+    }, { passive: true });
+    const loop = t => {
+      if (performance.now() - st.last > 2500) {
+        // spokojne kołysanie, gdy nikt nie rusza myszką (i na telefonach)
+        st.ty = Math.sin(t / 2400) * 8;
+        st.tx = Math.cos(t / 3100) * 5;
       }
-      scheduleBlink(p);
-    }, 1800 + Math.random() * 4200);
+      st.rx += (st.tx - st.rx) * .06;
+      st.ry += (st.ty - st.ry) * .06;
+      heroPablo.style.setProperty("--rx", `${st.rx.toFixed(2)}deg`);
+      heroPablo.style.setProperty("--ry", `${st.ry.toFixed(2)}deg`);
+      heroPablo.style.setProperty("--sx", `${50 + st.ry * 2.6}%`);
+      heroPablo.style.setProperty("--sy", `${42 - st.rx * 2.6}%`);
+      requestAnimationFrame(loop);
+    };
+    requestAnimationFrame(loop);
   }
-  if (!reduceMotion) pablos.forEach(scheduleBlink);
-
-  // Dymek nad Pablem w hero
-  const heroPablo = $(".js-pablo-poke");
-  const heroP = pablos.find(p => p.el === heroPablo);
-  const bubble = $(".js-bubble");
-  let bubbleT;
-  function pabloSay(text, ms = 1800) {
-    bubble.textContent = text;
-    bubble.classList.remove("is-on");
-    void bubble.offsetWidth;
-    bubble.classList.add("is-on");
-    clearTimeout(bubbleT);
-    bubbleT = setTimeout(() => bubble.classList.remove("is-on"), ms);
-  }
-
-  const CONFETTI = ["🫒", "🍤", "🥘", "🍷", "🌶️", "🧀", "🍋", "💃", "🎉", "🍅"];
-  function confetti(x, y) {
-    if (!hasGsap || reduceMotion) return;
-    for (let i = 0; i < 16; i++) {
-      const c = document.createElement("span");
-      c.className = "confetti";
-      c.textContent = pick(CONFETTI);
-      document.body.appendChild(c);
-      const ang = Math.random() * Math.PI * 2;
-      const pow = 120 + Math.random() * 220;
-      gsap.set(c, { x, y, xPercent: -50, yPercent: -50, scale: .4 + Math.random() * .8 });
-      gsap.to(c, { x: x + Math.cos(ang) * pow, duration: 1.6, ease: "power2.out" });
-      gsap.to(c, { y: y + Math.sin(ang) * pow - 120, duration: .6, ease: "power2.out" });
-      gsap.to(c, { y: `+=${260 + Math.random() * 200}`, opacity: 0, rotate: (Math.random() - .5) * 720, duration: 1.1, delay: .6, ease: "power2.in", onComplete: () => c.remove() });
-    }
-  }
-
-  let pokes = 0;
-  heroPablo.addEventListener("click", e => {
-    pokes++;
-    const r = heroPablo.getBoundingClientRect();
-    const x = e.clientX || r.left + r.width / 2;
-    const y = e.clientY || r.top + r.height / 2;
-    if (heroP) blink(heroP, "is-wink", 420);
-    pabloSay(pokes % 7 === 0 ? "¡Basta! Lepiej zamów tapas 😅" : pick(POKES));
-    confetti(x, y);
-    if (hasGsap && !reduceMotion) {
-      gsap.fromTo(heroPablo, { scaleX: 1.18, scaleY: .82 }, { scaleX: 1, scaleY: 1, duration: 1, ease: "elastic.out(1.2, .3)" });
-    }
-  });
-  heroPablo.addEventListener("mouseenter", () => heroPablo.classList.add("is-squint"));
-  heroPablo.addEventListener("mouseleave", () => heroPablo.classList.remove("is-squint"));
 
   // Rysowanie twarzy w loaderze
   function drawLoaderPablo() {
@@ -201,8 +105,6 @@
     });
     setTimeout(() => {
       lp.classList.add("is-drawn");
-      const p = pablos.find(q => q.el === lp);
-      if (p) { p.el.classList.add("is-sleep"); setTimeout(() => p.el.classList.remove("is-sleep"), 280); }
     }, 1150);
   }
 
@@ -401,8 +303,11 @@
       .from(".hero__eyebrow, .hero__lead, .hero__cta", { y: 30, opacity: 0, duration: 1.2, stagger: .1 }, .6)
       .from(".hero__float", { y: 120, opacity: 0, rotate: 0, duration: 1.6, stagger: .15 }, .5)
       .from(".nav", { top: -90, opacity: 0, duration: 1.2, clearProps: "top,opacity" }, .7)
-      .from(".hero__pablo", { y: -window.innerHeight * .9, rotate: -200, scale: .4, duration: 1.6, ease: "elastic.out(1, 0.55)" }, .9)
-      .add(() => pabloSay(pick(GREETINGS), 2600), 2.1);
+      .fromTo(".pablo--hero", { clipPath: "circle(0% at 50% 50%)" }, { clipPath: "circle(50% at 50% 50%)", duration: 1.5, ease: "expo.inOut", clearProps: "clipPath" }, .5)
+      .from(".hero__pablo", { scale: .7, opacity: 0, duration: 1.8, ease: "expo.out" }, .5)
+      .from(".hero__ring", { rotate: -120, opacity: 0, duration: 2, ease: "expo.out" }, .9)
+      .from(".hero__glow", { scale: 0, opacity: 0, duration: 2, ease: "expo.out" }, .8)
+      .add(() => $(".js-pablo-hero").classList.add("is-shine"), 1.6);
   }
 
   function setupScrollAnimations() {
@@ -416,7 +321,7 @@
     gsap.to(".hero__bg img", { yPercent: 12, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
     gsap.to(".hero__content", { y: -80, opacity: .2, ease: "none", scrollTrigger: { trigger: ".hero", start: "40% top", end: "bottom top", scrub: true } });
     gsap.to(".hero__float--a", { y: -160, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-    gsap.to(".hero__pablo .pablo--hero", { y: -120, rotation: 25, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    gsap.to(".hero__pablo", { y: -90, scale: .9, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
 
     // Tekst historii - słowa zapalają się podczas przewijania
     const words = $$(".story__big .w");
